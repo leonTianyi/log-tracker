@@ -1,0 +1,22 @@
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.db
+.venv/
+venv/
+
+# node / frontend build
+node_modules/
+frontend/dist/
+
+# the built UI copied into the backend for single-container serving
+backend/static/
+
+# local sqlite data (docker volume)
+data/
+
+# editor
+.vscode/
+.idea/
+.DS_Store

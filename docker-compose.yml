@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      # Keep the SQLite database on the host so it survives rebuilds.
+      - ./data:/app/data
+    environment:
+      - DATABASE_URL=sqlite:////app/data/log_tracker.db
+    restart: unless-stopped
