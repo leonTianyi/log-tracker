@@ -119,6 +119,13 @@ function AddFieldForm({ onAdded }: { onAdded: () => void }) {
             />
           </div>
         )}
+        {type === "date" && (
+          <div className="sm:col-span-2 text-xs text-zinc-500">
+            A calendar date in <span className="font-mono">YYYY-MM-DD</span> form
+            (e.g. a "date confirmed"). Not for a month token like{" "}
+            <span className="font-mono">2026.06</span> — use <span className="font-mono">text</span> for that.
+          </div>
+        )}
       </div>
       {error && <div className="text-sm text-red-400">{error}</div>}
       <Button variant="primary" onClick={submit} disabled={busy}>
@@ -144,21 +151,23 @@ function FieldGroup({
         {title}
       </h3>
       <div className="overflow-hidden rounded border border-zinc-800">
-        <table className="w-full text-sm">
+        <table className="w-full table-fixed text-sm">
           <thead className="bg-zinc-900 text-left text-xs uppercase tracking-wide text-zinc-500">
             <tr>
-              <th className="px-4 py-2 font-medium">Key</th>
-              <th className="px-4 py-2 font-medium">Label</th>
-              <th className="px-4 py-2 font-medium">Type</th>
-              <th className="px-4 py-2" />
+              <th className="w-[28%] px-4 py-2 font-medium">Key</th>
+              <th className="w-[34%] px-4 py-2 font-medium">Label</th>
+              <th className="w-[26%] px-4 py-2 font-medium">Type</th>
+              <th className="w-[12%] px-4 py-2" />
             </tr>
           </thead>
           <tbody>
             {fields.map((f) => (
-              <tr key={f.id} className="border-t border-zinc-800">
-                <td className="px-4 py-2 font-mono text-zinc-300">{f.key}</td>
-                <td className="px-4 py-2 text-zinc-300">{f.label}</td>
-                <td className="px-4 py-2 text-zinc-500">
+              <tr key={f.id} className="border-t border-zinc-800 align-top">
+                <td className="break-all px-4 py-2 font-mono text-zinc-300">
+                  {f.key}
+                </td>
+                <td className="break-words px-4 py-2 text-zinc-300">{f.label}</td>
+                <td className="break-words px-4 py-2 text-zinc-500">
                   {f.type}
                   {f.type === "enum" && f.options
                     ? ` (${f.options.join(", ")})`

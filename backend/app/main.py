@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import datetime
 from pathlib import Path
 
-from fastapi import Depends, FastAPI, HTTPException, UploadFile
+from fastapi import Depends, FastAPI, HTTPException, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -13,6 +13,8 @@ from sqlmodel import Session, select
 
 from .config import STAGE_KEYS, STAGE_LABELS, STAGE_STATES
 from .db import create_db_and_tables, engine, get_session
+from .exporter import export_amendment_csv, export_preview
+from .flag_loader import load_amendment_flags
 from .importer import import_csv
 from .models import FieldDefinition, Log, LogPath, StageStatus
 from .seed import seed_fields
@@ -105,6 +107,33 @@ async def import_endpoint(
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
     return result.as_dict()
+
+
+@app.post("/api/import/amendment-flags")
+async def load_flags_endpoint(
+    file: UploadFile, session: Session = Depends(get_session)
+) -> dict:
+    raw = await file.read()
+    try:
+        result = load_amendment_flags(session, raw)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+    return result.as_dict()
+
+
+@app.get("/api/export/amendment-flags/preview")
+def export_flags_preview(session: Session = Depends(get_session)) -> dict:
+    return export_preview(session)
+
+
+@app.get("/api/export/amendment-flags")
+def export_flags(session: Session = Depends(get_session)) -> Response:
+    filename, text = export_amendment_csv(session)
+    return Response(
+        content=text,
+        media_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
 
 
 @app.get("/api/logs")

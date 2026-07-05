@@ -2,13 +2,15 @@ import { useState } from "react";
 import LogsView from "./components/LogsView";
 import LogDetailView from "./components/LogDetailView";
 import ImportView from "./components/ImportView";
+import ExportView from "./components/ExportView";
 import FieldsView from "./components/FieldsView";
 
-type Tab = "logs" | "import" | "fields";
+type Tab = "logs" | "import" | "export" | "fields";
 
 const TABS: { key: Tab; label: string }[] = [
   { key: "logs", label: "Logs" },
   { key: "import", label: "Import" },
+  { key: "export", label: "Export" },
   { key: "fields", label: "Fields" },
 ];
 
@@ -58,6 +60,7 @@ export default function App() {
             />
           ))}
         {tab === "import" && <ImportView />}
+        {tab === "export" && <ExportView />}
         {tab === "fields" && <FieldsView />}
       </main>
     </div>

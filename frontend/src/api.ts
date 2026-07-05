@@ -1,11 +1,16 @@
 import type {
+  ExportPreview,
   FieldDef,
+  FlagLoadResult,
   ImportResult,
   LogDetail,
   LogSummary,
 } from "./types";
 
 const BASE = "/api";
+
+/** Direct link for the amendment-CSV download (a plain GET). */
+export const EXPORT_URL = `${BASE}/export/amendment-flags`;
 
 async function unwrap<T>(res: Response): Promise<T> {
   if (!res.ok) {
@@ -64,6 +69,19 @@ export const api = {
     return fetch(`${BASE}/import`, { method: "POST", body: form }).then((r) =>
       unwrap<ImportResult>(r),
     );
+  },
+
+  loadAmendmentFlags(file: File): Promise<FlagLoadResult> {
+    const form = new FormData();
+    form.append("file", file);
+    return fetch(`${BASE}/import/amendment-flags`, {
+      method: "POST",
+      body: form,
+    }).then((r) => unwrap<FlagLoadResult>(r));
+  },
+
+  exportPreview(): Promise<ExportPreview> {
+    return fetch(`${EXPORT_URL}/preview`).then((r) => unwrap<ExportPreview>(r));
   },
 
   listFields(): Promise<FieldDef[]> {

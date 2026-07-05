@@ -64,3 +64,26 @@ export interface ImportResult {
   paths_added: number;
   flagged: FlaggedRow[];
 }
+
+export interface FlagLoadError {
+  row_number: number;
+  column: string;
+  value: string;
+  message: string;
+}
+
+export interface FlagLoadResult {
+  rows_total: number;
+  logs_updated: number;
+  values_set: number;
+  columns_matched: string[];
+  columns_missing: string[];
+  unmatched_rows: number;
+  errors: FlagLoadError[];
+}
+
+export interface ExportPreview {
+  log_count: number;
+  columns: string[];
+  flag_columns: string[];
+}

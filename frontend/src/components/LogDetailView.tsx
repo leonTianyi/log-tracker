@@ -159,6 +159,7 @@ export default function LogDetailView({
       {amendmentFields.length > 0 && (
         <FieldSection
           title="Amendment flags"
+          accent="violet"
           fields={amendmentFields}
           draft={draft}
           setDraft={setDraft}
@@ -167,6 +168,7 @@ export default function LogDetailView({
       {metadataFields.length > 0 && (
         <FieldSection
           title="Metadata"
+          accent="slate"
           fields={metadataFields}
           draft={draft}
           setDraft={setDraft}
@@ -185,21 +187,32 @@ export default function LogDetailView({
 
 function FieldSection({
   title,
+  accent,
   fields,
   draft,
   setDraft,
 }: {
   title: string;
+  accent: "violet" | "slate";
   fields: FieldDef[];
   draft: Record<string, unknown>;
   setDraft: (d: Record<string, unknown>) => void;
 }) {
+  const accents = {
+    violet: { bar: "bg-violet-500", header: "bg-violet-500/10", text: "text-violet-200" },
+    slate: { bar: "bg-zinc-500", header: "bg-zinc-800/40", text: "text-zinc-300" },
+  }[accent];
+
   return (
-    <section>
-      <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-500">
-        {title}
-      </h3>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+    <section className="overflow-hidden rounded-lg border border-zinc-800">
+      <div className={`flex items-center gap-2 border-b border-zinc-800 px-4 py-2.5 ${accents.header}`}>
+        <span className={`h-3.5 w-1 rounded-full ${accents.bar}`} />
+        <h3 className={`text-sm font-semibold ${accents.text}`}>{title}</h3>
+        <span className="text-xs text-zinc-500">
+          {fields.length} field{fields.length === 1 ? "" : "s"}
+        </span>
+      </div>
+      <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2">
         {fields.map((f) => (
           <div key={f.id}>
             <label className="mb-1 block text-sm text-zinc-400">{f.label}</label>
