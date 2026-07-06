@@ -16,6 +16,9 @@ backend/static/
 # local sqlite data (docker volume)
 data/
 
+# real config with sensitive values (keep .env.example, ignore .env)
+.env
+
 # editor
 .vscode/
 .idea/
