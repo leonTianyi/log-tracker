@@ -1,6 +1,6 @@
-ics-1ahs-prod,ics-cfh-prod,notes
-s3://ics-1ahs-prod/data/TPG/2026.05/collection_a/01.12.32_checkout_run/,s3://ics-cfh-prod/data/TPG/2026.05/collection_a/01.12.30_checkout_run/,legacy paired - timestamps drift by 2s
-s3://ics-1ahs-prod/data/TPG/2026.06/collection_b/09.03.15_yard_loop/,,modern single-bucket
-s3://ics-1ahs-prod/data/TPG/2026.03/collection_c/22.45.01_checkout_run/,s3://ics-cfh-prod/data/TPG/2026.03/collection_c/22.45.03_checkout_run/,same name as row 1 but March - must NOT collide
-s3://ics-1ahs-prod/data/TPG/2026.05/collection_d/03.10.00_night_haul/,s3://ics-cfh-prod/data/TPG/2026.05/collection_d/03.10.02_night_hual/,buckets disagree (typo) - must be flagged not fused
-s3://ics-1ahs-prod/data/TPG/2026.06/collection_b/09.03.15_yard_loop/,,exact duplicate of row 2 - idempotent
+s3-bucket-1,s3-bucket-2,notes
+s3://s3-bucket-1/data/site_a/2026.05/collection_a/01.12.32_checkout_run/,s3://s3-bucket-2/data/site_a/2026.05/collection_a/01.12.30_checkout_run/,legacy paired - timestamps drift by 2s
+s3://s3-bucket-1/data/site_a/2026.06/collection_b/09.03.15_yard_loop/,,modern single-bucket
+s3://s3-bucket-1/data/site_a/2026.03/collection_c/22.45.01_checkout_run/,s3://s3-bucket-2/data/site_a/2026.03/collection_c/22.45.03_checkout_run/,same name as row 1 but March - must NOT collide
+s3://s3-bucket-1/data/site_a/2026.05/collection_d/03.10.00_night_haul/,s3://s3-bucket-2/data/site_a/2026.05/collection_d/03.10.02_night_hual/,buckets disagree (typo) - must be flagged not fused
+s3://s3-bucket-1/data/site_a/2026.06/collection_b/09.03.15_yard_loop/,,exact duplicate of row 2 - idempotent

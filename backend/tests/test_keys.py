@@ -2,11 +2,11 @@ from app.keys import find_date_token, parse_path, strip_timestamp
 
 
 def test_legacy_pair_resolves_to_same_key_despite_timestamp_drift():
-    a = parse_path("s3://ics-1ahs-prod/data/TPG/2026.05/coll/01.12.32_checkout_run/")
-    b = parse_path("s3://ics-cfh-prod/data/TPG/2026.05/coll/01.12.30_checkout_run/")
+    a = parse_path("s3://s3-bucket-1/data/site_a/2026.05/coll/01.12.32_checkout_run/")
+    b = parse_path("s3://s3-bucket-2/data/site_a/2026.05/coll/01.12.30_checkout_run/")
     assert a.natural_key == b.natural_key == "2026.05/checkout_run"
-    assert a.bucket == "ics-1ahs-prod"
-    assert b.bucket == "ics-cfh-prod"
+    assert a.bucket == "s3-bucket-1"
+    assert b.bucket == "s3-bucket-2"
 
 
 def test_same_name_different_month_gives_different_keys():

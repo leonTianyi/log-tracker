@@ -14,10 +14,8 @@ export default function ExportView() {
       <div>
         <h2 className="text-lg text-zinc-100">Export amendment CSV</h2>
         <p className="mt-1 text-sm text-zinc-500">
-          Breathes out a fresh CSV in the shape your batch pipeline reads — the
-          two path columns, then every amendment flag you've defined, in order.
-          It's a new timestamped file built from the current state of the
-          database; your team's source CSV is never touched.
+          Saves a copy of the imported CSV with the values you've changed. A new
+          file — your original input is never touched.
         </p>
       </div>
 
