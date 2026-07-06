@@ -14,7 +14,7 @@ AWS, and real S3 sync come later (see the roadmap at the bottom).
 ## What it does
 
 - **Import a CSV** of logs. One row = one log, with two bucket columns
-  (`ics-1ahs-prod` primary, `ics-cfh-prod` mirror). Re-importing the same file
+  (`s3-bucket-1` primary, `s3-bucket-2` mirror). Re-importing the same file
   changes nothing.
 - **Identify a log by meaning, not by path.** Two buckets hold the same legacy
   log under slightly different timestamps; the app strips the timestamp and keys
@@ -85,7 +85,7 @@ proxies `/api` to the backend on port 8000, so both halves talk to each other.
 Everything hangs on turning an S3 path into a stable identity:
 
 ```
-s3://ics-cfh-prod/.../TPG/2026.05/.../01.12.30_checkout_run/
+s3://s3-bucket-2/.../TPG/2026.05/.../01.12.30_checkout_run/
                           └── date ──┘        └── name ──┘   (timestamp stripped)
 
             natural_key  =  2026.05/checkout_run
@@ -143,7 +143,7 @@ log-tracker/
         └── stages.ts         stage list (mirrors backend config)
 ```
 
-If your real CSV headers differ from `ics-1ahs-prod` / `ics-cfh-prod`, change
+If your real CSV headers differ from `s3-bucket-1` / `s3-bucket-2`, change
 them in one place: `backend/app/config.py`.
 
 ---
