@@ -8,4 +8,8 @@ services:
       - ./data:/app/data
     environment:
       - DATABASE_URL=sqlite:////app/data/log_tracker.db
+      # Real CSV path-column headers come from a gitignored .env (see
+      # .env.example). Falls back to safe placeholders if unset.
+      - PRIMARY_COLUMN=${PRIMARY_COLUMN:-s3-bucket-1}
+      - MIRROR_COLUMN=${MIRROR_COLUMN:-s3-bucket-2}
     restart: unless-stopped

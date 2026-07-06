@@ -85,7 +85,7 @@ proxies `/api` to the backend on port 8000, so both halves talk to each other.
 Everything hangs on turning an S3 path into a stable identity:
 
 ```
-s3://s3-bucket-2/.../TPG/2026.05/.../01.12.30_checkout_run/
+s3://s3-bucket-2/.../site_a/2026.05/.../01.12.30_checkout_run/
                           └── date ──┘        └── name ──┘   (timestamp stripped)
 
             natural_key  =  2026.05/checkout_run
@@ -143,8 +143,12 @@ log-tracker/
         └── stages.ts         stage list (mirrors backend config)
 ```
 
-If your real CSV headers differ from `s3-bucket-1` / `s3-bucket-2`, change
-them in one place: `backend/app/config.py`.
+Your real CSV path-column headers are set with environment variables, not
+hardcoded — so the internal bucket names never live in the repo. Copy
+`.env.example` to `.env` and set `PRIMARY_COLUMN` / `MIRROR_COLUMN` to your
+actual headers. The `.env` file is gitignored; the committed defaults are
+harmless placeholders (`s3-bucket-1` / `s3-bucket-2`) that work with the sample
+data.
 
 ---
 

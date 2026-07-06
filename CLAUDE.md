@@ -122,8 +122,12 @@ do not rename them.
 - **Stages are defined in two places that must stay in sync:**
   `backend/app/config.py` (`STAGES`) and `frontend/src/stages.ts` (`STAGES`).
   Change both, or the UI and API disagree.
-- CSV bucket column names (`ics-1ahs-prod`, `ics-cfh-prod`) live in
-  `backend/app/config.py`. That's the one place to change them.
+- CSV bucket column names are set via `PRIMARY_COLUMN` / `MIRROR_COLUMN`
+  environment variables (see `.env.example`), NOT hardcoded — the real names are
+  sensitive and must never be committed. `config.py` falls back to generic
+  placeholders (`s3-bucket-1`, `s3-bucket-2`). Never write real bucket names,
+  project codes, or other internal identifiers into committed files (code, docs,
+  tests, or sample data); use placeholders.
 - Frontend components are hand-rolled Tailwind (shadcn/ui deliberately deferred).
   Aesthetic: dark control-room — charcoal surfaces, monospace for S3 paths/keys,
   one cold violet accent. Keep it legible and dense; usability over flourish.
